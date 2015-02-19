@@ -49,3 +49,34 @@ while ($row = $blog_sonuc->fetch_array()) {
     if ($yorum_sonuc->num_rows) {
         echo '<hr /><p>'.$yorum_sonuc->num_rows . ' comments</p>';
     }
+
+while ($row2 = $yorum_sonuc->fetch_array()) {
+       $uye=isset($_SESSION['uye']) ? $_SESSION['uye'] : null;
+       if($uye == 1){
+           $yorum_id =$row2['yorum_id'];
+           $blog_id=$row['blog_id'];
+       $sil ="<a href='admin.php?yorum_sil=$yorum_id&id=$blog_id'>DELETE</a>";
+       } 
+        echo "<div class='yorum'>$sil<b> {$row2['yazan']} </b>
+              <i> {$row2['tarih']} </i>
+              <div> {$row2['mesaj']}</div> </div>";
+    }
+
+   
+    echo '<p>Yorum Yap<form method="post" action="yorum.php">
+      <input type="hidden" name="blog_id" value="' . $row['blog_id'] . '"/>
+      Ad Soyad: <input type="text" name="yazan" maxlength="10" /><br />
+      Yorumunuz: <br />
+      <textarea rows="2" cols="30" name="mesaj"></textarea><br />
+      <input type="submit" name="yorum" value="Kaydet"/>
+      </form></p>';
+    echo "</div>\n";
+}
+
+
+$blog->close();
+$yorum->close();
+$db->close();
+?>
+</body>
+</html>
