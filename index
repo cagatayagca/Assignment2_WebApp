@@ -43,3 +43,33 @@ $ofset = isset($_GET['id']) ? $_GET['id'] : 0;
 $blog->bind_param("ii", $limit, $ofset);
 
 $blog->execute();
+
+$blog_sonuc = $blog->get_result();
+
+while ($row = $blog_sonuc->fetch_array()) {
+
+    
+    if(strlen(strip_tags($row['yazi'])) >50)
+    $row['yazi'] =substr(strip_tags($row['yazi']), 0, 50);
+
+    
+    echo "<div class='makale'>
+         <h3>{$row['baslik']}</h3>
+         <i>{$row['tarih']} date</i>
+         <p> {$row['yazi']}  
+		 . . .<a href='detay.php?id={$row['blog_id']}'>More</a>
+		 </p>";
+
+    
+    $yorum->bind_param('i', $row['blog_id']);
+
+    
+    $yorum->execute();
+
+   
+    $yorum_sonuc = $yorum->get_result();
+
+   
+    echo '<p>'.$yorum_sonuc->num_rows . ' comments</p>';
+    echo "</div>\n";
+}
