@@ -108,9 +108,35 @@ if(isset($_GET['guncelle'])){
 }else{
   echo '<h3>ADD</h3>
    <form method="post" action="admin.php">
-   Başlık: <input type="text" name="baslik" />
+   Header <input type="text" name="baslik" />
   <br />Notification<br/>
    <textarea rows="5" cols="30" name="yazi"></textarea>
    <br /><input type="submit" name="ekle" value="Kaydet" />
   </form>';
 }
+
+$blog  = $db->prepare("SELECT * FROM blog");
+
+
+$blog->execute();
+
+
+$blog_sonuc = $blog->get_result();
+
+
+echo '<hr /><table border=1>';
+while ($row = $blog_sonuc->fetch_array()) {
+  echo "<tr>
+  <td>{$row['baslik']}</td><td>
+  <a href='?guncelle={$row['blog_id']}'>UPDATE</a>
+  <a href='?sil={$row['blog_id']}' onclick=\"return confirm('DELETE?')\">DELETE</a>
+  </td>
+  </tr>\n";
+}
+echo '</table>';
+$blog->close();
+$db->close();
+?>
+</body>
+</html>
+<?php ob_end_flush(); ?>
