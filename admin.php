@@ -29,3 +29,20 @@ if(isset($_SESSION['uye'])){
  </head>
  <body>
  <a href="index.php">MAIN</a><br />
+
+ <?php
+
+if(isset($_POST['ekle'])){
+  $sql ="INSERT INTO blog(baslik,yazi) VALUES(?,?)";
+
+}else if(isset($_POST['guncelle'])){
+  $sql ="UPDATE blog SET baslik=?,yazi=? WHERE blog_id=?";
+
+}else if(isset($_GET['sil'])){
+  $sql ="DELETE FROM blog WHERE blog_id=?";
+
+}else if(isset($_GET['yorum_sil'])){
+  $sql ="DELETE FROM yorum WHERE yorum_id=?";
+  $_GET['sil']= $_GET['yorum_sil'];
+
+}
