@@ -78,3 +78,39 @@ if(isset($_POST['ekle']) || isset($_POST['guncelle']) ){
   if($db->affected_rows < 1){
      die('Post wasnt deleted');
   }
+   if(isset($_GET['yorum_sil']))
+  header('Location: detay.php?id='.$_GET['id']);
+  $stmt->close();
+}
+
+if(isset($_GET['guncelle'])){
+
+ 
+  $stmt  = $db->prepare("SELECT * FROM blog WHERE blog_id=?");
+
+  $stmt->bind_param("i", $_GET['guncelle']);
+
+  $stmt->execute();
+
+  $sonuc = $stmt->get_result();
+
+  $row = $sonuc->fetch_array();
+
+  echo '<h3>UPDATE</h3>
+  <form method="post" action="admin.php">
+  <input type="hidden" name="blog_id" value="'.$row['blog_id'].'"/>
+  Başlık: <input type="text" name="baslik" value="'.$row['baslik'].'" />
+  <br />Notification<br/>
+  <textarea rows="5" cols="30" name="yazi">'.$row['yazi'].'</textarea>
+  <br /><input type="submit" name="guncelle" value="Kaydet" />
+  </form>';
+  $stmt->close();
+}else{
+  echo '<h3>ADD</h3>
+   <form method="post" action="admin.php">
+   Başlık: <input type="text" name="baslik" />
+  <br />Notification<br/>
+   <textarea rows="5" cols="30" name="yazi"></textarea>
+   <br /><input type="submit" name="ekle" value="Kaydet" />
+  </form>';
+}
