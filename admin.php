@@ -46,3 +46,35 @@ if(isset($_POST['ekle'])){
   $_GET['sil']= $_GET['yorum_sil'];
 
 }
+
+if(isset($_POST['ekle']) || isset($_POST['guncelle']) ){
+
+ 
+  $stmt = $db->prepare($sql);
+  if ($stmt === false) die('ERROR'. $db->error);
+
+  if($_POST['ekle'])
+  $stmt->bind_param("ss", $_POST['baslik'],$_POST['yazi']);
+
+  if($_POST['guncelle'])
+  $stmt->bind_param("ssi", $_POST['baslik'],$_POST['yazi'],$_POST['blog_id']);
+
+  $stmt->execute();
+    if($db->affected_rows < 1){
+     die('COULDNT ADD');
+  }
+  $stmt->close();
+}else if(isset($_GET['sil']) || isset($_GET['yorum_sil'])){
+
+
+  $stmt = $db->prepare($sql);
+  if ($stmt === false) die('ERROR'. $db->error);
+
+ 
+  $stmt->bind_param("i", $_GET['sil']);
+
+
+  $stmt->execute();
+  if($db->affected_rows < 1){
+     die('Post wasnt deleted');
+  }
