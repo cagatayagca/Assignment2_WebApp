@@ -24,3 +24,22 @@ $db->set_charset("utf8");
 
 
 $toplam        = $db->query("SELECT count(*) FROM blog");
+
+
+$sayfa_sayisi = $toplam->fetch_row();
+
+
+$toplam->close();
+
+
+$blog  = $db->prepare("SELECT * FROM blog Order By blog_id DESC LIMIT ? OFFSET ?");
+
+
+$yorum = $db->prepare("SELECT * FROM yorum WHERE blog_id = ?");
+
+$limit = 2; 
+$ofset = isset($_GET['id']) ? $_GET['id'] : 0;
+
+$blog->bind_param("ii", $limit, $ofset);
+
+$blog->execute();
