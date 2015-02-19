@@ -12,3 +12,15 @@
    .yorum{border:0; border-top:1px dashed silver}
 </style>
  </head>
+ <body>
+ <a href="login.php">LOG IN</a>
+ <hr />
+<?php
+$db = @new mysqli('localhost', 'root', '1234', 'uygulama');
+if ($db->connect_errno) die('Bağlantı Hatası:' . $db->connect_error);
+
+
+$db->set_charset("utf8");
+
+
+$toplam        = $db->query("SELECT count(*) FROM blog");
