@@ -2,15 +2,12 @@
 <!DOCTYPE html>
 <html lang="tr">
  <head>
+
   <title> Blog Details </title>
   <meta charset="utf-8" />
+  <link href="style.css" type="text/css" rel="stylesheet" />
   <style>
-   body{font-family: "Times New Roman", arial; font-size:13pt;}
-   div{ margin:4px; padding:4px}
-   .makale{border:1px solid silver;}
-   h3,h4{text-decoration:underline;margin:4px;font-size:16pt;}
-   h4{font-size:13pt;}
-   .yorum{border:0; border-top:1px dashed silver}
+
   </style>
  </head>
 
@@ -49,7 +46,7 @@ while ($row = $blog_sonuc->fetch_array()) {
     if ($yorum_sonuc->num_rows) {
         echo '<hr /><p>'.$yorum_sonuc->num_rows . ' comments</p>';
     }
-
+global $sil;
 while ($row2 = $yorum_sonuc->fetch_array()) {
        $uye=isset($_SESSION['uye']) ? $_SESSION['uye'] : null;
        if($uye == 1){
@@ -57,6 +54,7 @@ while ($row2 = $yorum_sonuc->fetch_array()) {
            $blog_id=$row['blog_id'];
        $sil ="<a href='admin.php?yorum_sil=$yorum_id&id=$blog_id'>DELETE</a>";
        } 
+
         echo "<div class='yorum'>$sil<b> {$row2['yazan']} </b>
               <i> {$row2['tarih']} </i>
               <div> {$row2['mesaj']}</div> </div>";

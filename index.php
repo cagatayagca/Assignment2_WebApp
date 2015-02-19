@@ -1,19 +1,29 @@
+<?php 
+
+include ("login.php") ?>
 <!DOCTYPE html>
 <html lang="eng">
+
+
  <head>
+
+
   <title> My Blog </title>
   <meta charset="utf-8" />
   <style>
-   body{font-family: "Times New Roman", arial; font-size:13pt;}
-   div{ margin:4px; padding:4px}
-   .makale{border:1px solid silver;}
-   h3,h4{text-decoration:underline;margin:4px;font-size:16pt;}
-   h4{font-size:13pt;}
-   .yorum{border:0; border-top:1px dashed silver}
+ 
 </style>
+ <link href="style.css" type="text/css" rel="stylesheet" />
  </head>
  <body>
- <a href="login.php">LOG IN</a>
+ <div id="container">
+ <?php 
+ if(!isset($_SESSION['status']) || $_SESSION['status'] != 1 ) 
+    echo "<a href='loginform.php'>LOG IN</a>";
+ elseif(isset($_SESSION['status']) && $_SESSION['status'] == 1) 
+    echo "Welcome " . $_SESSION['ad'] ." <a href = 'logout.php'>[Logout]</a>";
+    echo " <a href = 'admin.php'>Admin Panel</a>";  
+  ?>
  <hr />
 <?php
 $db = @new mysqli('localhost', 'root', '', 'blog');
@@ -37,7 +47,7 @@ $blog  = $db->prepare("SELECT * FROM blog Order By blog_id DESC LIMIT ? OFFSET ?
 
 $yorum = $db->prepare("SELECT * FROM yorum WHERE blog_id = ?");
 
-$limit = 2; 
+$limit = 5; 
 $ofset = isset($_GET['id']) ? $_GET['id'] : 0;
 
 $blog->bind_param("ii", $limit, $ofset);
@@ -74,6 +84,7 @@ while ($row = $blog_sonuc->fetch_array()) {
     echo "</div>\n";
 }
 
+
 if ($sayfa_sayisi[0] > $limit) {
     $x = 0;
     for ($i = 0; $i < $sayfa_sayisi[0]; $i += $limit) {
@@ -85,5 +96,6 @@ $blog->close();
 $yorum->close();
 $db->close();
 ?>
+</div>
 </body>
 </html>

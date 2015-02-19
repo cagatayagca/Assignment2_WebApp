@@ -23,25 +23,10 @@ if($sonuc->num_rows){
    $row = $sonuc->fetch_array();
    $_SESSION['uye'] = $row['durum'];
    $_SESSION['ad']  = $row['ad'];
+   $_SESSION['status']  = 1;
    header('Location: admin.php');
   }else{
     $hata='<h3>Wrong e-mail or password</h3>';
   }
 }
 ?>
-<!DOCTYPE html>
-<html lang="tr">
- <head>
-  <title> LOGIN </title>
-  <meta charset="utf-8" />
- </head>
- <body>
- <h2>Giriş Yap</h2>
- <?php echo $hata; ?>
-<form method="post" action="">
-  <input type="text" name="eposta" />E-mail<br />
-  <input type="text" name="sifre" />Pass<br />
-  <input type="submit" value="Giriş" />
-</form>
-</body>
-</html>
