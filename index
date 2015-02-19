@@ -73,3 +73,17 @@ while ($row = $blog_sonuc->fetch_array()) {
     echo '<p>'.$yorum_sonuc->num_rows . ' comments</p>';
     echo "</div>\n";
 }
+
+if ($sayfa_sayisi[0] > $limit) {
+    $x = 0;
+    for ($i = 0; $i < $sayfa_sayisi[0]; $i += $limit) {
+        $x++;
+        echo "<a href='?id=$i'>[ $x ]</a>";
+    }
+}
+$blog->close();
+$yorum->close();
+$db->close();
+?>
+</body>
+</html>
