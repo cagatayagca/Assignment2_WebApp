@@ -17,7 +17,7 @@
  <body>
 <a href="index.php">MAIN PAGE</a><br />
 <?php
-$db = @new mysqli('localhost', 'root', '1234', 'uygulama');
+$db = @new mysqli('localhost', 'root', '', 'blog');
 if ($db->connect_errno) die('Bağlantı Hatası:' . $db->connect_error);
 
 $db->set_charset("utf8");
@@ -63,7 +63,7 @@ while ($row2 = $yorum_sonuc->fetch_array()) {
     }
 
    
-    echo '<p>Yorum Yap<form method="post" action="yorum.php">
+    echo '<p>Yorum Yap<form method="post" action="comment.php">
       <input type="hidden" name="blog_id" value="' . $row['blog_id'] . '"/>
       Ad Soyad: <input type="text" name="yazan" maxlength="10" /><br />
       Yorumunuz: <br />

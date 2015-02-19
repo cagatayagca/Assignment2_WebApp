@@ -1,5 +1,5 @@
 <?php
-$db = @new mysqli('localhost', 'root', '1234', 'uygulama');
+$db = @new mysqli('localhost', 'root', '', 'blog');
 if ($db->connect_errno)  die('ERROR:' . $db->connect_error);
 
 
@@ -21,7 +21,7 @@ if(isset($_POST['mesaj']) && !empty($_POST['mesaj']) && !empty($_POST['yazan']))
 
 
   if($db->affected_rows > 0){
-     header('Location: detay.php?id='.$_POST['blog_id']);
+     header('Location: details.php?id='.$_POST['blog_id']);
   }else{
      die('Comment didnt executed');
   }

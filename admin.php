@@ -1,7 +1,7 @@
 <?php
 ob_start(); 
 session_start();
-$db = @new mysqli('localhost', 'root', '1234', 'uygulama');
+$db = @new mysqli('localhost', 'root', '', 'blog');
 if ($db->connect_errno)  die('ERROR' . $db->connect_error);
 
 
@@ -79,7 +79,7 @@ if(isset($_POST['ekle']) || isset($_POST['guncelle']) ){
      die('Post wasnt deleted');
   }
    if(isset($_GET['yorum_sil']))
-  header('Location: detay.php?id='.$_GET['id']);
+  header('Location: details.php?id='.$_GET['id']);
   $stmt->close();
 }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="eng">
  <head>
   <title> My Blog </title>
   <meta charset="utf-8" />
@@ -16,7 +16,7 @@
  <a href="login.php">LOG IN</a>
  <hr />
 <?php
-$db = @new mysqli('localhost', 'root', '1234', 'uygulama');
+$db = @new mysqli('localhost', 'root', '', 'blog');
 if ($db->connect_errno) die('Bağlantı Hatası:' . $db->connect_error);
 
 
@@ -57,7 +57,7 @@ while ($row = $blog_sonuc->fetch_array()) {
          <h3>{$row['baslik']}</h3>
          <i>{$row['tarih']} date</i>
          <p> {$row['yazi']}  
-		 . . .<a href='detay.php?id={$row['blog_id']}'>More</a>
+		 . . .<a href='details.php?id={$row['blog_id']}'>More</a>
 		 </p>";
 
     
