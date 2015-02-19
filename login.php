@@ -44,3 +44,4 @@ if($sonuc->num_rows){
   <input type="submit" value="Giriş" />
 </form>
 </body>
+</html>
