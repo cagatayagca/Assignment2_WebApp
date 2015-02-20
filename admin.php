@@ -19,16 +19,14 @@ if(isset($_SESSION['uye'])){
 <!DOCTYPE html>
 <html lang="tr">
  <head>
- <link href="style.css" type="text/css" rel="stylesheet" />
+
   <title> My Blog </title>
   <meta charset="utf-8" />
-  <style>
-   body{font-family: "Times New Roman", arial; font-size:12pt;}
-   div{border:1px solid silver; margin:4px; padding:4px}
-   .yorum div{border:0; border-top:1px solid silver}
-</style>
+  
+ <link href="style.css" type="text/css" rel="stylesheet" />
  </head>
  <body>
+ <div id="container">
  <a href="index.php">MAIN</a><br />
 
  <?php
@@ -97,22 +95,32 @@ if(isset($_GET['guncelle'])){
 
   $row = $sonuc->fetch_array();
 
-  echo '<h3>UPDATE</h3>
+  echo '<h3 style="text-align:center">UPDATE</h3>
   <form method="post" action="admin.php">
   <input type="hidden" name="blog_id" value="'.$row['blog_id'].'"/>
-  Başlık: <input type="text" name="baslik" value="'.$row['baslik'].'" />
-  <br />Notification<br/>
-  <textarea rows="5" cols="30" name="yazi">'.$row['yazi'].'</textarea>
-  <br /><input type="submit" name="guncelle" value="Kaydet" />
+  <dl>
+  <dt>Title:</dt> 
+  <dd><input type="text" name="baslik" value="'.$row['baslik'].'" /></dd>
+  <dt>Text:</dt>
+  <dd><textarea rows="5" cols="30" name="yazi">'.$row['yazi'].'</textarea></dd>
+    </dl>
+  <input style="margin-left:170px" type="submit" name="guncelle" value="Kaydet" />
+ 
+ 
   </form>';
+
   $stmt->close();
 }else{
-  echo '<h3>ADD</h3>
+  echo '<h3 style="text-align:center">NEW</h3>
    <form method="post" action="admin.php">
-   Header <input type="text" name="baslik" />
-  <br />Notification<br/>
-   <textarea rows="5" cols="30" name="yazi"></textarea>
-   <br /><input type="submit" name="ekle" value="Kaydet" />
+   <dl>
+  <dt> Title:</dt> 
+  <dd><input type="text" name="baslik" /></dd>
+  <dt>Text:</dt>
+  <dd><textarea rows="5" cols="30" name="yazi"></textarea></dd>
+   
+  </dl>
+<input style="margin-left:170px"  type="submit" name="ekle" value="Kaydet" />
   </form>';
 }
 
@@ -125,7 +133,7 @@ $blog->execute();
 $blog_sonuc = $blog->get_result();
 
 
-echo '<hr /><table border=1>';
+echo '<hr /><table  cellspacing="0">';
 while ($row = $blog_sonuc->fetch_array()) {
   echo "<tr>
   <td>{$row['baslik']}</td><td>
@@ -138,6 +146,7 @@ echo '</table>';
 $blog->close();
 $db->close();
 ?>
+</div>
 </body>
 </html>
 <?php ob_end_flush(); ?>
