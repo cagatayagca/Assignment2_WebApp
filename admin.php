@@ -19,6 +19,7 @@ if(isset($_SESSION['uye'])){
 <!DOCTYPE html>
 <html lang="tr">
  <head>
+ <link href="style.css" type="text/css" rel="stylesheet" />
   <title> My Blog </title>
   <meta charset="utf-8" />
   <style>
