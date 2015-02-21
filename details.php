@@ -9,12 +9,15 @@
   <style>
 
   </style>
-  <link href="style.css" type="text/css" rel="stylesheet" />
-     <link href="font-awesome.css" rel="stylesheet">
+  <link href="css/style.css" type="text/css" rel="stylesheet" />
+     <link href="css/font-awesome.min.css" rel="stylesheet">
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
  </head>
 
  <body>
- <div id="container">
+<a href="index.php"><div id="header"></div></a>
+<div id="container">
 <a href="index.php">MAIN PAGE</a><br />
 <?php
 $db = @new mysqli('localhost', 'root', '', 'blog');
@@ -36,9 +39,9 @@ $blog_sonuc = $blog->get_result();
 
 while ($row = $blog_sonuc->fetch_array()) {
     echo "<div class='makale'>
-         <div id='header'><h3>{$row['baslik']}</h3></div>
-         <div id='meta'><i class='fa fa-calendar'></i><span>{$row['tarih']}</span><i class='fa fa-user'></i><span>{$row['ad']}</span></div>
-         <div id='post'><pre> {$row['yazi']} </pre> </div>
+         <div id='post-header'><h3>{$row['baslik']}</h3></div>
+         <div id='meta'><i class='fa fa-calendar'></i><span>{$row['tarih']}</span><i class='fa fa-user'></i><span>{$row['ad']}<span style='float:right;'><a href = 'admin.php'>Düzenle/Sil</a></span></div>
+         <div id='post'><p> {$row['yazi']} </p> </div>
          </div>";
 
     $yorum->bind_param('i', $row['blog_id']);
@@ -62,23 +65,22 @@ while ($row2 = $yorum_sonuc->fetch_array()) {
         echo "
           <div id='comment'>
           <div id='comment-meta'>
-          <i class='fa fa-user'></i><span>{$row2['yazan']}</span><i class='fa fa-calendar'></i><span><{$row2['tarih']} </span>
+          <i class='fa fa-user'></i><span>{$row2['yazan']}</span><i class='fa fa-calendar'></i><span>{$row2['tarih']} </span>
            <span>$sil</span>
            </div>
-            <div id='comment-body'> {$row2['mesaj']}</div> </div>";
+            <div id='comment-body'> {$row2['mesaj']}</div> </div><hr>";
     }
 
    
-    echo '<div id="reply">Yorum Yap
+    echo '<div id="reply"><h3>Leave A Comment</h3><br>
           <form method="post" action="comment.php">
             <input type="hidden" name="blog_id" value="' . $row['blog_id'] . '"/>
-            <dt>Ad Soyad:</dt> 
+            <dt>Name</dt> 
             <dd><input type="text" name="yazan" maxlength="10" /></dd>
-            <dt>Yorumunuz:</dt>
+            <dt>Comment</dt>
             <dd><textarea rows="2" cols="30" name="mesaj"></textarea></dd>
             <input type="submit" name="yorum" value="Submit "/>
           </form></div>';
- 
 }
 
 
@@ -86,6 +88,7 @@ $blog->close();
 $yorum->close();
 $db->close();
 ?>
+ 
 </div>
 </body>
 </html>

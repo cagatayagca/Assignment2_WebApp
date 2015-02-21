@@ -23,18 +23,18 @@ if(isset($_SESSION['uye'])){
   <title> My Blog </title>
   <meta charset="utf-8" />
   
- <link href="style.css" type="text/css" rel="stylesheet" />
+ <link href="css/style.css" type="text/css" rel="stylesheet" />
  </head>
  <body>
+ <a href="index.php"><div id="header"></div></a>
  <div id="container">
  <a href="index.php">MAIN</a><br />
 
  <?php
-
-if(isset($_POST['ekle'])){
+if(isset($_POST['ekle']) && !empty($_POST['ekle'])){
   $sql ="INSERT INTO blog(baslik,yazi) VALUES(?,?)";
-
-}else if(isset($_POST['guncelle'])){
+}
+else if(isset($_POST['guncelle'])){
   $sql ="UPDATE blog SET baslik=?,yazi=? WHERE blog_id=?";
 
 }else if(isset($_GET['sil'])){
@@ -44,8 +44,8 @@ if(isset($_POST['ekle'])){
   $sql ="DELETE FROM yorum WHERE yorum_id=?";
   $_GET['sil']= $_GET['yorum_sil'];
 
-}
 
+}
 if(isset($_POST['ekle']) || isset($_POST['guncelle']) ){
 
  
@@ -120,7 +120,7 @@ if(isset($_GET['guncelle'])){
   <dd><textarea rows="5" cols="30" name="yazi"></textarea></dd>
    
   </dl>
-<input style="margin-left:170px"  type="submit" name="ekle" value="Kaydet" />
+<input style="margin-left:170px"  type="submit" name="ekle" value="Submit" />
   </form>';
 }
 
@@ -143,8 +143,11 @@ while ($row = $blog_sonuc->fetch_array()) {
   </tr>\n";
 }
 echo '</table>';
+
 $blog->close();
+
 $db->close();
+
 ?>
 </div>
 </body>
