@@ -1,19 +1,19 @@
 <?php 
 
-include ("login.php") ?>
+include ("login.php");
+ ?>
+
 <!DOCTYPE html>
 <html lang="eng">
-
-
  <head>
-
   <title> My Blog </title>
   <meta charset="utf-8" />
   <style>
  
 </style>
  <link href="css/style.css" type="text/css" rel="stylesheet" />
- <link href="css/font-awesome.min.css" rel="stylesheet">
+ <link href="css/font-awesome.min.css" rel="stylesheet"/>
+
    <!-- Include jQuery -->
   <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 
@@ -28,14 +28,28 @@ include ("login.php") ?>
  if(!isset($_SESSION['status']) || $_SESSION['status'] != 1 ) 
     echo "<a href='loginform.php'>LOG IN</a>";
  elseif(isset($_SESSION['status']) && $_SESSION['status'] == 1) 
+ {
     echo "<ul>";
     echo "<li><a href='#'>Welcome " . $_SESSION['ad'] ."</a></li>";
     echo "<li><a href = 'admin.php'>Admin Panel</a></li>";
     echo "<li><a class='new_post_popup_open' href='#'>New Post</a></li>";
+ 
     echo "<li style='float:right;border-left: 1px solid #ececee;border-right: 0;margin-right: -55px;'><a href = 'logout.php'>Logout</a></li>";
     echo "</ul>";
+ }
+
   ?>
 </div>
+ <div id="navigation">
+ <ul><li>Youtube Search </li></ul>
+    <form method="GET" action="youtube.php" style="position: relative;top: -13px;left: -35px;">  
+      <input type="search" id="q" name="q" placeholder="Enter Search Term" style="height: 31px;">  
+       <label style="font-size: 12px;">Max Results:</label> <input type="number" id="maxResults" name="maxResults" min="1" max="50" step="1" value="20">  
+      <input style="margin-top: 2px;" type="submit" value="Search">  
+    </form>  
+ </div>
+
+
 
 <?php
 $db = @new mysqli('localhost', 'root', '', 'blog');
@@ -108,29 +122,30 @@ echo "</ul></div>";
 $blog->close();
 $yorum->close();
 $db->close();
+
+
 ?>
 
 
 
   <div id="new_post_popup">
-
-<form method="post" action="admin.php">
-   <dl>
-  <dt> Title:</dt> 
-  <dd><input type="text" name="baslik" /></dd>
-  <dt>Text:</dt>
-  <dd><textarea rows="5" cols="30" name="yazi"></textarea></dd>
-  </dl>
-  <input style="margin-left:170px"  type="submit" name="ekle" value="Submit" />
-  </form>
+    <form method="post" action="admin.php">
+     <dl>
+    <dt> Title:</dt> 
+    <dd><input type="text" name="baslik" /></dd>
+    <dt>Text:</dt>
+    <dd><textarea rows="5" cols="30" name="yazi"></textarea></dd>
+    </dl>
+    <input style="margin-left:170px"  type="submit" name="ekle" value="Submit" />
+    </form>
     <a style="float:right;" class="new_post_popup_close" href="#"><span id="popup-close"><i class="fa fa-times"></i></span></a>
-
   </div>
+  
  <script>
     $(document).ready(function() {
 
       // Initialize the plugin
-      $('#new_post_popup').popup();
+      $('#new_post_popup').popup(), $('#youtube_popup').popup();
 
     });
   </script>

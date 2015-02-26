@@ -130,7 +130,16 @@ color: #6B75A0;
 
 }
 
+#youtube_results{
+	background-color: #fff;
+	padding: 40px;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-o-border-radius: 8px;
+   	box-shadow: 0 0 10px rgba(0,0,0,0.3);
 
+}
 dt {
 width: 150px;
 float: left;
@@ -138,7 +147,7 @@ padding-left: 20px;
 line-height: 27px;
 }
 
-input[type="text"], input[type="password"], textarea {
+input[type="text"], input[type="password"], input[type="search"], input[type="number"], textarea {
 font-weight: normal;
 cursor: pointer;
 vertical-align: top;
