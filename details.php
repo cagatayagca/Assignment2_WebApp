@@ -18,7 +18,31 @@
  <body>
 <a href="index.php"><div id="header"></div></a>
 <div id="container">
-<a href="index.php">MAIN PAGE</a><br />
+<div id="navigation">
+ <?php 
+ if(!isset($_SESSION['status']) || $_SESSION['status'] != 1 ) 
+    echo "<a href='loginform.php'>LOG IN</a>";
+ elseif(isset($_SESSION['status']) && $_SESSION['status'] == 1) 
+ {
+    echo "<ul>";
+    echo "<li><a href='#'>Welcome " . $_SESSION['ad'] ."</a></li>";
+    echo "<li><a href = 'admin.php'>Admin Panel</a></li>";
+    echo "<li><a class='new_post_popup_open' href='#'>New Post</a></li>";
+ 
+    echo "<li style='float:right;border-left: 1px solid #ececee;border-right: 0;margin-right: -55px;'><a href = 'logout.php'>Logout</a></li>";
+    echo "</ul>";
+ }
+
+  ?>
+</div>
+ <div id="navigation">
+ <ul><li>Youtube Search </li></ul>
+    <form method="GET" action="youtube.php" style="position: relative;top: -13px;left: -35px;">  
+      <input type="search" id="q" name="q" placeholder="Enter Search Term" style="height: 31px;">  
+       <label style="font-size: 12px;">Max Results:</label> <input type="number" id="maxResults" name="maxResults" min="1" max="50" step="1" value="20">  
+      <input style="margin-top: 2px;" type="submit" value="Search">  
+    </form>  
+ </div>
 <?php
 $db = @new mysqli('localhost', 'root', '', 'blog');
 if ($db->connect_errno) die('Bağlantı Hatası:' . $db->connect_error);
